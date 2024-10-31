@@ -7,7 +7,7 @@ export default function Home() {
       <Navbar />
       <main className="px-20 py-10">
         <h1 className="text-5xl font-bold text-zinc-100">
-          Escolha um quiz para continuar
+          Escolha um quiz para continuar..
         </h1>
         <Cards />
       </main>
