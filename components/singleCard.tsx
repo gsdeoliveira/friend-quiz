@@ -16,7 +16,7 @@ export const SingleCard = (card: SingleCardProps) => {
       <div className="relative w-full h-80 xl:w-2/5 rounded-t-lg xl:rounded-t-none xl:rounded-l-lg">
         <Image
           priority
-          placeholder='blur'
+          placeholder="blur"
           src={card.image}
           alt={card.name}
           fill
