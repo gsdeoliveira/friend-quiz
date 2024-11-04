@@ -7,6 +7,8 @@ import { useState } from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoClose } from 'react-icons/io5'
 import { FaRegUser } from 'react-icons/fa'
+import { MenuItem } from './menuItem'
+import { cardsMock } from '@/mock/data'
 
 export const Navbar = () => {
   const logged = false
@@ -21,18 +23,9 @@ export const Navbar = () => {
 
       <div className="text-white hidden md:block">
         <ul className="flex space-x-4 text-lg">
-          <li>
-            <Link href="/fernando">Fernando</Link>
-          </li>
-          <li>
-            <Link href="/guilherme">Guilherme</Link>
-          </li>
-          <li>
-            <Link href="/carol">Carol</Link>
-          </li>
-          <li>
-            <Link href="/victor">Victor</Link>
-          </li>
+          {cardsMock.map((card) => (
+            <MenuItem key={card.firstName} {...card} />
+          ))}
         </ul>
       </div>
 

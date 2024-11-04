@@ -4,7 +4,8 @@ import Image, { StaticImageData } from 'next/image'
 import { Button } from './ui/button'
 
 interface SingleCardProps {
-  name: string
+  firstName: string
+  secondName: string
   tags: string[]
   color: string
   image: StaticImageData
@@ -18,13 +19,15 @@ export const SingleCard = (card: SingleCardProps) => {
           priority
           placeholder="blur"
           src={card.image}
-          alt={card.name}
+          alt={card.firstName}
           fill
           className="rounded-t-lg xl:rounded-tr-none xl:rounded-l-lg object-cover"
         />
       </div>
       <div className="flex flex-1 flex-col space-y-5 justify-between p-3 sm:p-5 text-zinc-100 w-full h-full">
-        <h2 className="font-semibold text-xl md:text-3xl">{card.name}</h2>
+        <h2 className="font-semibold text-xl md:text-3xl">
+          {card.firstName + ' ' + card.secondName}
+        </h2>
         <ul className="space-y-2">
           {card.tags.map((tag) => (
             <li key={tag}>
