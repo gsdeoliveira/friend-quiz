@@ -25,7 +25,7 @@ export const SingleCard = (card: SingleCardProps) => {
         />
       </div>
       <div className="flex flex-1 flex-col space-y-5 justify-between p-3 sm:p-5 text-zinc-100 w-full h-full">
-        <h2 className="font-semibold text-xl md:text-3xl">
+        <h2 className="font-semibold text-lg md:text-2xl">
           {card.firstName + ' ' + card.secondName}
         </h2>
         <ul className="space-y-2">
@@ -43,7 +43,7 @@ export const SingleCard = (card: SingleCardProps) => {
         </ul>
         <Button
           style={{ backgroundColor: card.color }}
-          className="uppercase p-6 w-full text-lg md:text-2xl font-semibold hover:brightness-90 transition"
+          className="uppercase p-6 w-full text-md md:text-xl font-semibold hover:brightness-90 transition"
         >
           Começar
         </Button>

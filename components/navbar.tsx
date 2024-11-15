@@ -9,11 +9,13 @@ import { IoClose } from 'react-icons/io5'
 import { FaRegUser } from 'react-icons/fa'
 import { MenuItem } from './menuItem'
 import { cardsMock } from '@/mock/data'
+import { useLoginModal } from '@/hooks/useLoginModal'
 
 export const Navbar = () => {
   const logged = false
 
   const [menuIsOpen, setMenuIsOpen] = useState(false)
+  const loginModal = useLoginModal()
 
   return (
     <nav className="flex items-center justify-between bg-zinc-900 px-5 md:px-10 lg:px-20 py-5">
@@ -70,6 +72,7 @@ export const Navbar = () => {
                 Registrar
               </Button>
               <Button
+                onClick={() => loginModal.onOpen()}
                 variant={'secondary'}
                 className="flex-1 text-lg font-semibold py-6"
               >
@@ -92,7 +95,11 @@ export const Navbar = () => {
             </>
           )}
 
-          {!logged && <Link href={''}>Entrar</Link>}
+          {!logged && (
+            <Link href={''} onClick={() => loginModal.onOpen()}>
+              Entrar
+            </Link>
+          )}
         </Button>
       </div>
     </nav>

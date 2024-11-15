@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
 import { cn } from '@/lib/utils'
+import { LoginModal } from '@/components/modals/login-modal'
+import { RegisterModal } from '@/components/modals/register-model'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -20,7 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={cn('bg-zinc-800', poppins.className)}>{children}</body>
+      <body className={cn('bg-zinc-800', poppins.className)}>
+        <LoginModal />
+        <RegisterModal />
+        {children}
+      </body>
     </html>
   )
 }
