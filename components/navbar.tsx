@@ -85,6 +85,7 @@ export const Navbar = () => {
 
       <div className="hidden md:block">
         <Button
+          onClick={() => loginModal.onOpen()}
           variant={`${logged ? 'default' : 'secondary'}`}
           className="text-lg font-semibold px-10 py-5"
         >
