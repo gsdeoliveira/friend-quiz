@@ -1,7 +1,9 @@
+'use client'
 import React from 'react'
 import Image, { StaticImageData } from 'next/image'
 
 import { Button } from './ui/button'
+import { useToast } from '@/hooks/use-toast'
 
 interface SingleCardProps {
   firstName: string
@@ -12,6 +14,8 @@ interface SingleCardProps {
 }
 
 export const SingleCard = (card: SingleCardProps) => {
+  const { toast } = useToast()
+
   return (
     <div className="flex flex-col xl:flex-row bg-zinc-950 h-full rounded-lg">
       <div className="relative w-full h-80 xl:w-2/5 rounded-t-lg xl:rounded-t-none xl:rounded-l-lg">
@@ -42,6 +46,12 @@ export const SingleCard = (card: SingleCardProps) => {
           ))}
         </ul>
         <Button
+          onClick={() => {
+            toast({
+              variant: 'success',
+              title: 'Conta criada com sucesso!',
+            })
+          }}
           style={{ backgroundColor: card.color }}
           className="uppercase p-6 w-full text-md md:text-xl font-semibold hover:brightness-90 transition"
         >

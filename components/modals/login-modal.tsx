@@ -13,6 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form'
 import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
 import { Button } from '../ui/button'
+import { useToast } from '@/hooks/use-toast'
 
 export const LoginModal = () => {
   const loginModal = useLoginModal()
@@ -22,6 +23,7 @@ export const LoginModal = () => {
   const [error, setError] = useState<string | undefined>('')
   const [success, setSuccess] = useState<string | undefined>('')
   const [isLoading, setIsLoading] = useState(false)
+  const { toast } = useToast()
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -36,11 +38,10 @@ export const LoginModal = () => {
       setError('')
       setSuccess('')
       setIsLoading(true)
-      console.log('values', values)
+      toast({ description: 'Email Enviado!' })
 
       startTransition(() => {
         login(values).then((data) => {
-          console.log('data', values)
           setError(data.error)
           setSuccess(data.success)
         })
@@ -117,6 +118,12 @@ export const LoginModal = () => {
             <FormSuccess message={success} />
           </div>
           <Button
+            onClick={() => {
+              toast({
+                title: 'Scheduled: Catch up',
+                description: 'Friday, February 10, 2023 at 5:57 PM',
+              })
+            }}
             type="submit"
             variant={'secondary'}
             size={'lg'}
