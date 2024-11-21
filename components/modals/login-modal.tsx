@@ -1,27 +1,56 @@
 'use client'
+import * as z from 'zod'
 import { useLoginModal } from '@/hooks/useLoginModal'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useTransition } from 'react'
 import { Modal } from '../modal'
 import { useRegisterModal } from '@/hooks/useRegisterModal'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { LoginSchema } from '@/schemas'
+import { useForm } from 'react-hook-form'
+import { login } from '@/actions/login'
 
 export const LoginModal = () => {
   const loginModal = useLoginModal()
   const registerModal = useRegisterModal()
+
+  const [isPending, startTransition] = useTransition()
+  const [error, setError] = useState<string | undefined>('')
+  const [success, setSuccess] = useState<string | undefined>('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const onSubmit = useCallback(async () => {
-    try {
-      setIsLoading(true)
+  const form = useForm<z.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
 
-      loginModal.onClose()
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [loginModal])
+  const onSubmit = useCallback(
+    async (values: z.infer<typeof LoginSchema>) => {
+      try {
+        setError('')
+        setSuccess('')
+        setIsLoading(true)
+
+        startTransition(() => {
+          login(values).then((data) => {
+            setError(data.error)
+            setSuccess(data.success)
+          })
+        })
+
+        loginModal.onClose()
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [loginModal],
+  )
 
   const onToggle = useCallback(() => {
     if (isLoading) return
