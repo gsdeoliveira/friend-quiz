@@ -1,8 +1,6 @@
 'use client'
 import { useRegisterModal } from '@/hooks/useRegisterModal'
-import { useState, useCallback } from 'react'
 import { Modal } from '../modal'
-import { useLoginModal } from '@/hooks/useLoginModal'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import { Button } from '../ui/button'
@@ -11,27 +9,6 @@ import { IoIosClose } from 'react-icons/io'
 
 export const RegisterModal = () => {
   const registerModal = useRegisterModal()
-  const loginModal = useLoginModal()
-  const [isLoading, setIsLoading] = useState(false)
-
-  const onSubmit = useCallback(async () => {
-    try {
-      setIsLoading(true)
-
-      registerModal.onClose()
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [registerModal])
-
-  const onToggle = useCallback(() => {
-    if (isLoading) return
-
-    registerModal.onClose()
-    loginModal.onOpen()
-  }, [isLoading, registerModal, loginModal])
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -126,7 +103,7 @@ export const RegisterModal = () => {
       <p>
         Já possui uma conta?
         <span
-          onClick={onToggle}
+          onClick={() => {}}
           className="text-white cursor-pointer hover:underline"
         >
           {' '}
@@ -138,12 +115,10 @@ export const RegisterModal = () => {
 
   return (
     <Modal
-      disabled={isLoading}
+      disabled={false}
       isOpen={registerModal.isOpen}
       title="Cadastre-se"
-      actionLabel="Cadastrar"
       onClose={registerModal.onClose}
-      onSubmit={onSubmit}
       body={bodyContent}
       footer={footerContent}
     />

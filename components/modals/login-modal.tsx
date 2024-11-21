@@ -5,11 +5,14 @@ import { useState, useCallback, useTransition } from 'react'
 import { Modal } from '../modal'
 import { useRegisterModal } from '@/hooks/useRegisterModal'
 import { Input } from '../ui/input'
-import { Label } from '../ui/label'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoginSchema } from '@/schemas'
 import { useForm } from 'react-hook-form'
 import { login } from '@/actions/login'
+import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form'
+import { FormError } from '../form-error'
+import { FormSuccess } from '../form-success'
+import { Button } from '../ui/button'
 
 export const LoginModal = () => {
   const loginModal = useLoginModal()
@@ -28,29 +31,28 @@ export const LoginModal = () => {
     },
   })
 
-  const onSubmit = useCallback(
-    async (values: z.infer<typeof LoginSchema>) => {
-      try {
-        setError('')
-        setSuccess('')
-        setIsLoading(true)
+  const onSubmit = useCallback(async (values: z.infer<typeof LoginSchema>) => {
+    try {
+      setError('')
+      setSuccess('')
+      setIsLoading(true)
+      console.log('values', values)
 
-        startTransition(() => {
-          login(values).then((data) => {
-            setError(data.error)
-            setSuccess(data.success)
-          })
+      startTransition(() => {
+        login(values).then((data) => {
+          console.log('data', values)
+          setError(data.error)
+          setSuccess(data.success)
         })
+      })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
 
-        loginModal.onClose()
-      } catch (error) {
-        console.error(error)
-      } finally {
-        setIsLoading(false)
-      }
-    },
-    [loginModal],
-  )
+  console.log('Erros do formulário:', form.formState.errors)
 
   const onToggle = useCallback(() => {
     if (isLoading) return
@@ -60,30 +62,72 @@ export const LoginModal = () => {
   }, [isLoading, registerModal, loginModal])
 
   const bodyContent = (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="email" className="text-white">
-          Email:
-        </Label>
-        <Input
-          id="email"
-          type="email"
-          placeholder="Email"
-          className="bg-zinc-900 text-white border-none"
-        />
-      </div>
-      <div>
-        <Label htmlFor="senha" className="text-white">
-          Senha:
-        </Label>
-        <Input
-          id="senha"
-          type="password"
-          placeholder="Senha"
-          className="bg-zinc-900 text-white border-none"
-        />
-      </div>
-    </div>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-4"
+      >
+        <div className="flex flex-col justify-between gap-10">
+          <div className="space-y-5">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field, fieldState }) => (
+                <FormItem>
+                  <FormLabel className="text-white">Email:</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      id="email"
+                      type="email"
+                      placeholder="john.doe@example.com"
+                      className="bg-zinc-900 text-white border-none"
+                    />
+                  </FormControl>
+                  {fieldState.error && (
+                    <FormError message={fieldState.error?.message} />
+                  )}
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field, fieldState }) => (
+                <FormItem>
+                  <FormLabel className="text-white">Senha:</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      id="senha"
+                      type="password"
+                      placeholder="12345678"
+                      className="bg-zinc-900 text-white border-none"
+                    />
+                  </FormControl>
+                  {fieldState.error && (
+                    <FormError message={fieldState.error?.message} />
+                  )}
+                </FormItem>
+              )}
+            />
+            <FormError message={error} />
+            <FormSuccess message={success} />
+          </div>
+          <Button
+            type="submit"
+            variant={'secondary'}
+            size={'lg'}
+            className="text-lg"
+            disabled={isPending}
+          >
+            Entrar
+          </Button>
+        </div>
+      </form>
+    </Form>
   )
 
   const footerContent = (
@@ -106,9 +150,7 @@ export const LoginModal = () => {
       disabled={isLoading}
       isOpen={loginModal.isOpen}
       title="Entrar"
-      actionLabel="Entrar"
       onClose={loginModal.onClose}
-      onSubmit={onSubmit}
       body={bodyContent}
       footer={footerContent}
     />
