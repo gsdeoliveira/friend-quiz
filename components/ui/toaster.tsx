@@ -9,6 +9,8 @@ import {
   ToastTitle,
   ToastViewport,
 } from '@/components/ui/toast'
+import { FaCheck } from "react-icons/fa"
+import { FaExclamation } from "react-icons/fa"
 
 export function Toaster() {
   const { toasts } = useToast()
@@ -18,7 +20,9 @@ export function Toaster() {
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
           <Toast key={id} {...props}>
-            <div className="grid gap-1">
+            <div className="flex gap-3 items-center justify-center">
+              {props.variant === 'success' && <FaCheck />}
+              {props.variant === 'destructive' && <FaExclamation />}
               {title && <ToastTitle>{title}</ToastTitle>}
               {description && (
                 <ToastDescription>{description}</ToastDescription>
