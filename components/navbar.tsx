@@ -10,6 +10,7 @@ import { FaRegUser } from 'react-icons/fa'
 import { MenuItem } from './menuItem'
 import { cardsMock } from '@/mock/data'
 import { useLoginModal } from '@/hooks/useLoginModal'
+import { Login } from './modals/login'
 
 export const Navbar = () => {
   const logged = false
@@ -71,37 +72,14 @@ export const Navbar = () => {
               <Button className="flex-1 text-lg font-semibold py-6">
                 Registrar
               </Button>
-              <Button
-                onClick={() => loginModal.onOpen()}
-                variant={'secondary'}
-                className="flex-1 text-lg font-semibold py-6"
-              >
-                Entrar
-              </Button>
+              <Login />
             </div>
           </div>
         </div>
       </div>
 
       <div className="hidden md:block">
-        <Button
-          onClick={() => loginModal.onOpen()}
-          variant={`${logged ? 'default' : 'secondary'}`}
-          className="text-lg font-semibold px-10 py-5"
-        >
-          {logged && (
-            <>
-              <FaRegUser className="flex-1 text-lg font-semibold py-5" />
-              <span className="text-lg font-semibold">Gabriel</span>
-            </>
-          )}
-
-          {!logged && (
-            <Link href={''} onClick={() => loginModal.onOpen()}>
-              Entrar
-            </Link>
-          )}
-        </Button>
+        <Login />
       </div>
     </nav>
   )
