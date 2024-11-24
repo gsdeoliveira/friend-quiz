@@ -33,25 +33,28 @@ export const LoginModal = () => {
     },
   })
 
-  const onSubmit = useCallback(async (values: z.infer<typeof LoginSchema>) => {
-    try {
-      setError('')
-      setSuccess('')
-      setIsLoading(true)
-      toast({ description: 'Email Enviado!' })
+  const onSubmit = useCallback(
+    async (values: z.infer<typeof LoginSchema>) => {
+      try {
+        setError('')
+        setSuccess('')
+        setIsLoading(true)
+        toast({ description: 'Email Enviado!' })
 
-      startTransition(() => {
-        login(values).then((data) => {
-          setError(data.error)
-          setSuccess(data.success)
+        startTransition(() => {
+          login(values).then((data) => {
+            setError(data.error)
+            setSuccess(data.success)
+          })
         })
-      })
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [toast],
+  )
 
   console.log('Erros do formulário:', form.formState.errors)
 

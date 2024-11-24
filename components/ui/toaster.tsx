@@ -9,8 +9,7 @@ import {
   ToastTitle,
   ToastViewport,
 } from '@/components/ui/toast'
-import { FaCheck } from "react-icons/fa"
-import { FaExclamation } from "react-icons/fa"
+import { FaCheck, FaExclamation } from 'react-icons/fa'
 
 export function Toaster() {
   const { toasts } = useToast()

@@ -5,7 +5,6 @@ import * as ToastPrimitives from '@radix-ui/react-toast'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { Cross2Icon } from '@radix-ui/react-icons'
-import { FaCheck } from "react-icons/fa"
 
 const ToastProvider = ToastPrimitives.Provider
 
@@ -32,8 +31,7 @@ const toastVariants = cva(
         default: 'border bg-background text-foreground',
         success:
           'success group border-black/50 bg-emerald-300 text-emerald-700',
-        destructive:
-          'destructive group border-red-200 bg-red-300 text-red-700',
+        destructive: 'destructive group border-red-200 bg-red-300 text-red-700',
       },
     },
     defaultVariants: {

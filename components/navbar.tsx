@@ -6,17 +6,12 @@ import { useState } from 'react'
 
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoClose } from 'react-icons/io5'
-import { FaRegUser } from 'react-icons/fa'
 import { MenuItem } from './menuItem'
 import { cardsMock } from '@/mock/data'
-import { useLoginModal } from '@/hooks/useLoginModal'
 import { Login } from './modals/login'
 
 export const Navbar = () => {
-  const logged = false
-
   const [menuIsOpen, setMenuIsOpen] = useState(false)
-  const loginModal = useLoginModal()
 
   return (
     <nav className="flex items-center justify-between bg-zinc-900 px-5 md:px-10 lg:px-20 py-5">
