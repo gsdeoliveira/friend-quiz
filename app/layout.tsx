@@ -25,8 +25,6 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={cn('bg-zinc-800', poppins.className)}>
         <Toaster />
-        <LoginModal />
-        <RegisterModal />
         {children}
       </body>
     </html>

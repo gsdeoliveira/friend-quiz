@@ -86,3 +86,28 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Define a largura da barra de rolagem */
+::-webkit-scrollbar {
+  width: 10px; /* Para scroll vertical */
+  height: 10px; /* Para scroll horizontal */
+}
+
+/* Define o estilo da "thumb" (parte que você arrasta) */
+::-webkit-scrollbar-thumb {
+  background-color: #09090b; /* Cor da thumb */
+  border-radius: 6px; /* Arredonda os cantos da thumb */
+  border: 3px solid #27272A; /* Adiciona uma borda para um efeito 3D */
+}
+
+/* Define o estilo do "track" (área onde a thumb se move) */
+::-webkit-scrollbar-track {
+  background-color: #27272A; /* Cor do fundo do track */
+  border-radius: 6px;
+}
+
+/* Define o estilo do "track" quando o usuário está interagindo */
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer; /* Muda o cursor quando o usuário passa a thumb */
+  background-color: #09090b; /* Cor mais escura quando o usuário passa o mouse */
+}

@@ -8,13 +8,13 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoClose } from 'react-icons/io5'
 import { MenuItem } from './menuItem'
 import { cardsMock } from '@/mock/data'
-import { Login } from './modals/login'
+import { LoginRegister } from './modals/login-register'
 
 export const Navbar = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
 
   return (
-    <nav className="flex items-center justify-between bg-zinc-900 px-5 md:px-10 lg:px-20 py-5">
+    <nav className="flex items-center justify-between h-20 bg-zinc-900 px-5 md:px-10 lg:px-20 py-5">
       <div>
         <Image src="/logo.svg" alt="Logo" width={70} height={70} />
       </div>
@@ -67,14 +67,14 @@ export const Navbar = () => {
               <Button className="flex-1 text-lg font-semibold py-6">
                 Registrar
               </Button>
-              <Login />
+              <LoginRegister />
             </div>
           </div>
         </div>
       </div>
 
       <div className="hidden md:block">
-        <Login />
+        <LoginRegister />
       </div>
     </nav>
   )
