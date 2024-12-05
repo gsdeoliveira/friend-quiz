@@ -1,5 +1,4 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -8,8 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form'
+import { useEffect, useState } from 'react'
 
 interface ModalProps {
   isOpen?: boolean
@@ -20,13 +18,8 @@ interface ModalProps {
   disabled?: boolean
 }
 
-export const Modal: React.FC<ModalProps> = ({
-  onClose,
-  title,
-  body,
-  footer,
-}) => {
-  const [open, setOpen] = useState(false);
+export const Modal: React.FC<ModalProps> = ({ title, body }) => {
+  const [open, setOpen] = useState(false)
   useEffect(() => {
     console.log('isOpen:', open)
   }, [open])
@@ -34,15 +27,15 @@ export const Modal: React.FC<ModalProps> = ({
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <Button variant="outline">Entrar</Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px] flex flex-col">
-            <DialogHeader>
-              <DialogTitle>{title}</DialogTitle>
-            </DialogHeader>
-            {body}
-          </DialogContent>
+        <DialogTrigger asChild>
+          <Button variant="outline">Entrar</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px] flex flex-col">
+          <DialogHeader>
+            <DialogTitle>{title}</DialogTitle>
+          </DialogHeader>
+          {body}
+        </DialogContent>
       </Dialog>
     </>
   )
