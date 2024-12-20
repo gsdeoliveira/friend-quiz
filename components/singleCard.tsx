@@ -48,7 +48,7 @@ export const SingleCard = (card: SingleCardProps) => {
         <Button
           onClick={() => {
             toast({
-              variant: 'destructive',
+              variant: 'success',
               title: 'Conta criada com sucesso!',
             })
           }}
