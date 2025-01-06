@@ -13,6 +13,7 @@ import { useRegisterModal } from '@/hooks/useRegisterModal'
 import { useLoginModal } from '@/hooks/useLoginModal'
 import { register } from '@/actions/register'
 import { Badge } from '../ui/badge'
+import { CirclePicker } from 'react-color'
 
 export const Register = () => {
   const [isPending, startTransition] = useTransition()
@@ -33,6 +34,11 @@ export const Register = () => {
     },
   })
 
+  // Função para tratar a mudança da cor
+  const handleColorChange = (color: { hex: string }) => {
+    form.setValue('color', color.hex)
+  }
+
   const onSubmit = useCallback(
     async (values: z.infer<typeof RegisterSchema>) => {
       try {
@@ -42,6 +48,13 @@ export const Register = () => {
               toast({
                 variant: 'success',
                 title: 'Seja bem-vindo de volta!',
+              })
+            }
+
+            if (data.error) {
+              toast({
+                variant: 'destructive',
+                title: data.error,
               })
             }
           })
@@ -138,24 +151,32 @@ export const Register = () => {
                   </FormItem>
                 )}
               />
-              <div className="flex flex-col sm:flex-row gap-3 w-full">
+              <div className="flex flex-col sm:flex-row gap-3 w-full relative">
                 <FormField
                   control={form.control}
                   name="color"
                   render={({ fieldState }) => (
-                    <FormItem className="flex-1">
+                    <FormItem className="flex-1 space-y-2">
                       <FormLabel htmlFor="cor" className="text-white">
                         Escolha sua cor:
                       </FormLabel>
                       <FormControl>
-                        <div className="w-10 h-10 rounded-full bg-white" />
+                        <CirclePicker
+                          onChangeComplete={(e) => handleColorChange(e)}
+                          width="100%"
+                        />
                       </FormControl>
                       {fieldState.error && (
-                        <FormError message={fieldState.error?.message} />
+                        <FormError
+                          className="mt-32"
+                          message={fieldState.error?.message}
+                        />
                       )}
                     </FormItem>
                   )}
                 />
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 w-full relative">
                 <FormField
                   control={form.control}
                   name="email"
@@ -166,9 +187,15 @@ export const Register = () => {
                       </FormLabel>
                       <FormControl>
                         <div className="space-x-1">
-                          <Badge>ReactJS</Badge>
-                          <Badge>JavaScript</Badge>
-                          <Badge>NextJS</Badge>
+                          <Badge className="hover:bg-black cursor-pointer">
+                            ReactJS
+                          </Badge>
+                          <Badge className="hover:bg-black cursor-pointer">
+                            JavaScript
+                          </Badge>
+                          <Badge className="hover:bg-black cursor-pointer">
+                            NextJS
+                          </Badge>
                         </div>
                       </FormControl>
                       {fieldState.error && (

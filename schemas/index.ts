@@ -22,7 +22,7 @@ export const RegisterSchema = z.object({
   secondName: z.string({ message: 'Sobrenome é obrigatório' }).min(1, {
     message: 'Sobrenome é obrigatório',
   }),
-  color: z.string().min(1, {
+  color: z.string({ message: 'Cor é obrigatório' }).min(1, {
     message: 'Cor é obrigatório',
   }),
 })
